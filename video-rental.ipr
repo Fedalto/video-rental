@@ -30,6 +30,9 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
+  <component name="GradleSettings">
+    <option name="gradleHome" value="/usr/local/Cellar/gradle/1.0/libexec" />
+  </component>
   <component name="IdProvider" IDEtalkID="2F1F1E4DE6E8436D2DEF0C0E10033CE0" />
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" />

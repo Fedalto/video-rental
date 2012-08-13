@@ -32,6 +32,7 @@ public class CustomerTest extends TestCase {
         equalsFile("1st Output", "outputEmpty", dinsdale.statement());
     }
     public void testCustomer() throws Exception {
+        System.out.print(dinsdale.statement());
         equalsFile("1st Output", "output1", dinsdale.statement());
     }
 
