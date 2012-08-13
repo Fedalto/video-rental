@@ -29,7 +29,7 @@ public class Customer {
 			double thisAmount = 0;
 			Rental currentRental = rentals.next();
             thisAmount += currentRental.calculateAmount();
-            frequentRenterPoints += calculateFrequentRenterPoints(currentRental);
+            frequentRenterPoints += currentRental.calculateFrequentRenterPoints();
             result = getStatementLineForThisRental(result, thisAmount, currentRental);
             totalAmount += thisAmount;
 
@@ -38,17 +38,7 @@ public class Customer {
 		return result;
 	}
 
-    private int calculateFrequentRenterPoints(Rental currentRental) {
-
-        int frequentRenterPoints = 1;
-        // add bonus for a two day new release rental
-        if ((currentRental.getMovie().getPriceCode() == Movie.NEW_RELEASE)
-                && currentRental.getDaysRented() > 1)
-            frequentRenterPoints++;
-        return frequentRenterPoints;
-    }
-
-    private String addFooterLinesToRentalStatement(double totalAmount, int frequentRenterPoints, String result) {
+     private String addFooterLinesToRentalStatement(double totalAmount, int frequentRenterPoints, String result) {
         result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
         result += "You earned " + String.valueOf(frequentRenterPoints)
                 + " frequent renter points";
