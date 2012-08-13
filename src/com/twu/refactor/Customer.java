@@ -23,16 +23,13 @@ public class Customer {
 	public String statement() {
 		double totalAmount = 0;
 		int frequentRenterPoints = 0;
-		Iterator<Rental> rentals = rentalList.iterator();
 		String result = "Rental Record for " + getName() + "\n";
-		while (rentals.hasNext()) {
-			double thisAmount = 0;
-			Rental currentRental = rentals.next();
-            thisAmount += currentRental.calculateAmount();
-            frequentRenterPoints += currentRental.calculateFrequentRenterPoints();
-            result = getStatementLineForThisRental(result, thisAmount, currentRental);
-            totalAmount += thisAmount;
 
+		for (Rental rental : rentalList) {
+			double thisAmount = rental.calculateAmount();
+            frequentRenterPoints += rental.calculateFrequentRenterPoints();
+            result = getStatementLineForThisRental(result, thisAmount, rental);
+            totalAmount += thisAmount;
 		}
         result = addFooterLinesToRentalStatement(totalAmount, frequentRenterPoints, result);
 		return result;
@@ -41,7 +38,7 @@ public class Customer {
      private String addFooterLinesToRentalStatement(double totalAmount, int frequentRenterPoints, String result) {
         result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
         result += "You earned " + String.valueOf(frequentRenterPoints)
-                + " frequent renter points";
+               +  " frequent renter points";
         return result;
     }
 

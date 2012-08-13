@@ -1,28 +1,22 @@
 package com.twu.refactor;
 
 public class Movie {
-	public static final int  CHILDRENS = 2;
-	public static final int  REGULAR = 0;
-	public static final int  NEW_RELEASE = 1;
-
 	private String title;
-	private int priceCode;
+    private MovieCategory movieCategory;
 
-	public Movie(String title, int priceCode) {
-		this.title = title;
-		this.priceCode = priceCode;
-	}
-
-	public int getPriceCode() {
-		return priceCode;
-	}
-
-	public void setPriceCode(int arg) {
-    	priceCode = arg;
-	}
-
+   public Movie(String title,MovieCategory category) {
+        this.title = title;
+       this.movieCategory=category;
+    }
 	public String getTitle () {
 		return title;
 	}
+    public double calculateAmountForGivenDays(int noOfdays){
+        return movieCategory.calculateAmount(noOfdays);
+    }
+
+    public int calculateFrequentRenterPoints(int daysRented) {
+        return movieCategory.calculateFrequentRenterPoints(daysRented);
+    }
 }
 

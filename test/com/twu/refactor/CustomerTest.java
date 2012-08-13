@@ -5,21 +5,29 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
-public class CustomerTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+
+public class CustomerTest {
 
 	private static final String GOLD_PATH = "test/data";
 
     private Customer dinsdale = new Customer("Dinsdale Pirhana");
 
-    private Movie python = new Movie("Monty Python and the Holy Grail", Movie.REGULAR);
-	private Movie ran = new Movie("Ran", Movie.REGULAR);
-	private Movie la = new Movie("LA Confidential", Movie.NEW_RELEASE);
-	private Movie trek = new Movie("Star Trek 13.2", Movie.NEW_RELEASE);
-	private Movie wallace = new Movie("Wallace and Gromit", Movie.CHILDRENS);
+    private static RegularMovieCategory regularMovieCategory=new RegularMovieCategory();
+    private static ChildrenMovieCategory childrenMovieCategory=new ChildrenMovieCategory();
+    private static NewReleaseCategory newReleaseCategory=new NewReleaseCategory();
 
-    public void setUp (){
+    private Movie python = new Movie("Monty Python and the Holy Grail",regularMovieCategory);
+	private Movie ran = new Movie("Ran", regularMovieCategory);
+	private Movie la = new Movie("LA Confidential", newReleaseCategory);
+	private Movie trek = new Movie("Star Trek 13.2", newReleaseCategory);
+	private Movie wallace = new Movie("Wallace and Gromit", childrenMovieCategory);
+
+    @Before
+    public void setUpRentals (){
        dinsdale.addRental(new Rental (python, 3));
        dinsdale.addRental(new Rental (ran, 1));
        dinsdale.addRental(new Rental (la, 2));
@@ -27,18 +35,15 @@ public class CustomerTest extends TestCase {
        dinsdale.addRental(new Rental (wallace, 6));
    }
 
-    public void testEmpty() throws Exception {
+    @Test
+    public void shouldreturnEmptyStatement() throws Exception {
     	dinsdale = new Customer("Dinsdale Pirhana");
         equalsFile("1st Output", "outputEmpty", dinsdale.statement());
     }
+    
+    @Test
     public void testCustomer() throws Exception {
-        System.out.print(dinsdale.statement());
         equalsFile("1st Output", "output1", dinsdale.statement());
-    }
-
-    public void testChange() throws Exception {
-    	la.setPriceCode(Movie.REGULAR);
-        equalsFile("1st Output", "outputChange", dinsdale.statement());
     }
 
     /*
@@ -46,7 +51,7 @@ public class CustomerTest extends TestCase {
         equalsFile("1st Output", "outputHtml", dinsdale.htmlStatement());
     }
     */
-    	
+
     protected void equalsFile(String message, String fileName, String actualValue) throws IOException{
         BufferedReader file = new BufferedReader (new FileReader (GOLD_PATH + '/' + fileName));
         BufferedReader actualStream = new BufferedReader (new StringReader (actualValue));
